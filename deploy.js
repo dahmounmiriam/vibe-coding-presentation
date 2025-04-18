@@ -1,7 +1,12 @@
 // Simple script to help with deployment to GitHub Pages
-const { execSync } = require('child_process');
-const fs = require('fs');
-const path = require('path');
+import { execSync } from 'child_process';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Get the directory name of the current module
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Colors for console output
 const colors = {
@@ -23,13 +28,13 @@ try {
 
   // Step 2: Create .nojekyll file to bypass Jekyll processing
   console.log(`${colors.yellow}Creating .nojekyll file...${colors.reset}`);
-  fs.writeFileSync(path.join('dist', '.nojekyll'), '');
+  fs.writeFileSync(path.join(__dirname, 'dist', '.nojekyll'), '');
   console.log(`${colors.green}.nojekyll file created!${colors.reset}\n`);
 
   // Step 3: Copy 404.html to dist folder
   console.log(`${colors.yellow}Copying 404.html to dist folder...${colors.reset}`);
-  if (fs.existsSync(path.join('public', '404.html'))) {
-    fs.copyFileSync(path.join('public', '404.html'), path.join('dist', '404.html'));
+  if (fs.existsSync(path.join(__dirname, 'public', '404.html'))) {
+    fs.copyFileSync(path.join(__dirname, 'public', '404.html'), path.join(__dirname, 'dist', '404.html'));
     console.log(`${colors.green}404.html copied successfully!${colors.reset}\n`);
   } else {
     console.log(`${colors.red}404.html not found in public folder. Skipping...${colors.reset}\n`);
@@ -37,8 +42,8 @@ try {
 
   // Step 4: Copy CNAME to dist folder
   console.log(`${colors.yellow}Copying CNAME to dist folder...${colors.reset}`);
-  if (fs.existsSync(path.join('public', 'CNAME'))) {
-    fs.copyFileSync(path.join('public', 'CNAME'), path.join('dist', 'CNAME'));
+  if (fs.existsSync(path.join(__dirname, 'public', 'CNAME'))) {
+    fs.copyFileSync(path.join(__dirname, 'public', 'CNAME'), path.join(__dirname, 'dist', 'CNAME'));
     console.log(`${colors.green}CNAME copied successfully!${colors.reset}\n`);
   } else {
     console.log(`${colors.red}CNAME not found in public folder. Skipping...${colors.reset}\n`);
