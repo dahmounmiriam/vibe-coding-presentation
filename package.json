@@ -10,7 +10,9 @@
     "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
-    "deploy:script": "node deploy.js"
+    "deploy:script": "node deploy.js",
+    "deploy:sh": "bash deploy.sh",
+    "deploy:win": "deploy.bat"
   },
   "dependencies": {
     "@react-three/drei": "^9.92.1",
